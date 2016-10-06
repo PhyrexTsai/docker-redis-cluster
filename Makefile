@@ -1,7 +1,7 @@
 CID_FILE = /tmp/grokzen-redis-cluster.cid
 CID =`cat $(CID_FILE)`
 IMAGE_NAME = grokzen/redis-cluster
-PORTS = -p 7000:7000 -p 7001:7001 -p 7002:7002 -p 7003:7003 -p 7004:7004 -p 7005:7005 -p 7006:7006 -p 7007:7007
+PORTS = -p 7000:7000 -p 7001:7001 -p 7002:7002 -p 7003:7003 -p 7004:7004 -p 7005:7005 -p 7006:7006 -p 7007:7007 -p 7008:7008
 
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
