@@ -1,0 +1,37 @@
+version: '2'
+services:
+  redis-cluster-1:
+    image: dev/redis-cluster-1:latest
+    build: .
+    links:
+      - "redis-cluster-2:redis-cluster-2"
+      - "redis-cluster-3:redis-cluster-3"
+    ports:
+      - "7000:7000"
+      - "7001:7001"
+      - "7002:7002"
+    command: ["/bin/bash", "/start1.sh"]
+    network_mode: "host"
+  redis-cluster-2:  
+    build: .
+    links:
+      - "redis-cluster-1:redis-cluster-1"
+      - "redis-cluster-3:redis-cluster-3"
+    ports:
+      - "7003:7003"
+      - "7004:7004"
+      - "7005:7005"
+    command: ["/bin/bash", "/start2.sh"]
+    network_mode: "host"
+  redis-cluster-3:
+    image: dev/redis-cluster-3:latest
+    build: .
+    links:
+      - "redis-cluster-1:redis-cluster-1"
+      - "redis-cluster-2:redis-cluster-2"
+    ports:
+      - "7006:7006"
+      - "7007:7007"
+      - "7008:7008"
+    command: ["/bin/bash", "/start3.sh"]
+    network_mode: "host"

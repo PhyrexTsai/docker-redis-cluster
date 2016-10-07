@@ -1,3 +1,5 @@
+mv /supervisord3.conf /etc/supervisor/conf.d/supervisord.conf
+
 supervisord
 sleep 3
 

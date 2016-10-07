@@ -53,12 +53,17 @@ RUN mkdir /redis-data && \
 ADD ./docker-data/redis-conf /redis-conf
 
 # Add supervisord configuration
-ADD ./docker-data/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# ADD ./docker-data/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./docker-data/supervisord/supervisord1.conf /supervisord1.conf
+ADD ./docker-data/supervisord/supervisord2.conf /supervisord2.conf
+ADD ./docker-data/supervisord/supervisord3.conf /supervisord3.conf
 
 # Add startup script
-ADD ./docker-data/start.sh /start.sh
-RUN chmod 755 /start.sh
-
-EXPOSE 7000 7001 7002 7003 7004 7005 7006 7007 7008
+ADD ./docker-data/start1.sh /start1.sh
+ADD ./docker-data/start2.sh /start2.sh
+ADD ./docker-data/start3.sh /start3.sh
+RUN chmod 755 /start1.sh
+RUN chmod 755 /start2.sh
+RUN chmod 755 /start3.sh
 
 CMD ["/bin/bash", "/start.sh"]

@@ -1,13 +1,52 @@
-server:
-  build: .
-  hostname: server
-  ports:
-    - "7000:7000"
-    - "7001:7001"
-    - "7002:7002"
-    - "7003:7003"
-    - "7004:7004"
-    - "7005:7005"
-    - "7006:7006"
-    - "7007:7007"
-    - "7008:7008"
+version: '2'
+services:
+  ambassador:
+    image: cpuguy83/docker-grand-ambassador
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    command: "-name redis-cluster-1 -name redis-cluster-2 -name redis-cluster-3"
+  redis-cluster-1:
+    image: dev/redis-cluster-1:latest
+    build: .
+    links:
+      - "ambassador:redis-cluster-2"
+      - "ambassador:redis-cluster-3"
+    ports:
+      - "7000:7000"
+      - "7001:7001"
+      - "7002:7002"
+    expose:
+      - "7000"
+      - "7001"
+      - "7002"
+    command: ["/bin/bash", "/start1.sh"]
+  redis-cluster-2:
+    image: dev/redis-cluster-2:latest
+    build: .
+    links:
+      - "ambassador:redis-cluster-1"
+      - "ambassador:redis-cluster-3"
+    ports:
+      - "7003:7003"
+      - "7004:7004"
+      - "7005:7005"
+    expose:
+      - "7003"
+      - "7004"
+      - "7005"
+    command: ["/bin/bash", "/start2.sh"]
+  redis-cluster-3:
+    image: dev/redis-cluster-3:latest
+    build: .
+    links:
+      - "ambassador:redis-cluster-1"
+      - "ambassador:redis-cluster-2"
+    ports:
+      - "7006:7006"
+      - "7007:7007"
+      - "7008:7008"
+    expose:
+      - "7006"
+      - "7007"
+      - "7008"
+    command: ["/bin/bash", "/start3.sh"]
