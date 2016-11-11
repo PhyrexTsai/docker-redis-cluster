@@ -42,12 +42,6 @@ RUN (cd /redis && make)
 
 # Because Git cannot track empty folders we have to create them manually...
 RUN mkdir /redis-data && \
-    mkdir /redis-data/7000 && \
-    mkdir /redis-data/7001 && \
-    mkdir /redis-data/7002 && \
-    mkdir /redis-data/7003 && \
-    mkdir /redis-data/7004 && \
-    mkdir /redis-data/7005 && \
     mkdir /redis-data/7006 && \
     mkdir /redis-data/7007 && \
     mkdir /redis-data/7008
@@ -62,6 +56,6 @@ ADD ./docker-data/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ADD ./docker-data/start.sh /start.sh
 RUN chmod 755 /start.sh
 
-EXPOSE 7000 7001 7002 7003 7004 7005 7006 7007 7008
+EXPOSE 7006 7007 7008
 
 CMD ["/bin/bash", "/start.sh"]
