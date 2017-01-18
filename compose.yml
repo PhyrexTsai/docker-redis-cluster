@@ -1,6 +1,9 @@
 server:
+  container_name: redis-cluster
   build: .
   hostname: server
+  net: "host"
+  restart: always
   ports:
     - "7000:7000"
     - "7001:7001"
